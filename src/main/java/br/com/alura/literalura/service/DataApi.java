@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
 
 public class DataApi {
     public static String getData(String url) {
@@ -27,7 +28,11 @@ public class DataApi {
                 return response.body();
             }
 
-        } catch (ConnectException e) {
+        }
+        catch (HttpTimeoutException e) {
+            System.out.println("Erro. Tempo de resposta da API excedido!");;
+        }
+        catch (ConnectException e) {
             System.out.println("Erro. Verifique sua conexão!");
         }
         catch (IOException | InterruptedException | RuntimeException e) {

@@ -13,7 +13,7 @@ public class Converter implements IConverter{
         try {
             return mapper.readValue(json, className);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao converter.");
         }
     }
 

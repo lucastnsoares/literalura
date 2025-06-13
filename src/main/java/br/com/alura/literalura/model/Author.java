@@ -3,6 +3,7 @@ package br.com.alura.literalura.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "authors")
@@ -68,10 +69,19 @@ public class Author {
 
     @Override
     public String toString() {
+
+        String listBooks = (books != null)
+                ? books.stream()
+                .map(Book::getTitle)
+                .collect(Collectors.joining(" / "))
+                : "Nenhum livro";
+
+
         return String.format("""
                 Nome: %s
                 Ano de nascimento: %d
                 Ano de falecimento: %d
-                """, name, birthYear, deathYear);
+                Livro(s): %s
+                """, name, birthYear, deathYear, listBooks);
     }
 }

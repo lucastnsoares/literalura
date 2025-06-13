@@ -77,12 +77,13 @@ public class Book {
         this.downloadCount = downloadCount;
     }
 
+
     @Override
     public String toString() {
         String nameAuthors = (authors != null)
                 ? authors.stream()
-                .map(Author::getName)  // só imprime os nomes, evita chamar o toString inteiro
-                .collect(Collectors.joining("/ "))
+                .map(Author::getName)
+                .collect(Collectors.joining(" / "))
                 : "Nenhum autor";
         return String.format("""
                 Livro: %s
