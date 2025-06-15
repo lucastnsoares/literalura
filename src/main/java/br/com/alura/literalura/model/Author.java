@@ -18,7 +18,7 @@ public class Author {
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private List<Book> books;
 
-    public Author () {
+    public Author() {
     }
 
     public Author(String name, int birthYear, int deathYear) {

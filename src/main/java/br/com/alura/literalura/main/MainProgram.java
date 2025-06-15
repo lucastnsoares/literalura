@@ -29,26 +29,26 @@ public class MainProgram {
     public void showMenu() {
         System.out.print("""
                 
-                ----------- BEM VINDO AO LITERALURA! -----------
+                ----------- BEM VINDO(A) AO APLICATIVO LITERALURA! -----------
                 
                 """);
         int option = -1;
         while (option != 0) {
             System.out.print("""
-                MENU DE OPÇÕES
-                
-                1 - Buscar livro pelo título
-                2 - Listar livros registrados no banco de dados
-                3 - Listar autores registrados no banco de dados
-                4 - Listar autores vivos em um determinado ano
-                5 - Listar livros de um determinado idioma
-                0 - Sair da aplicação
-                
-                """);
+                    MENU DE OPÇÕES
+                    
+                    1 - Buscar livro pelo título
+                    2 - Listar livros registrados no banco de dados
+                    3 - Listar autores registrados no banco de dados
+                    4 - Listar autores vivos em um determinado ano
+                    5 - Listar livros de um determinado idioma
+                    0 - Sair da aplicação
+                    
+                    """);
             System.out.print("Escolha o número da opção desejada: ");
             try {
                 option = scanner.nextInt();
-            } catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 option = -1;
             }
             scanner.nextLine();
@@ -74,7 +74,13 @@ public class MainProgram {
                     pressAnyKeyToContinue();
                     break;
                 case 0:
-                    System.out.println("Encerrando aplicação...");
+                    System.out.print("""
+                            
+                            
+                            Encerrando aplicação...
+                            
+                            
+                            """);
                     break;
                 default:
                     System.out.println("Opção inválida! Escolha uma opção entre 1 e 5.");
@@ -95,18 +101,18 @@ public class MainProgram {
                         ---------------------------------------------------------------------------
                         Nenhum livro encontrado na API!
                         ---------------------------------------------------------------------------
-                
+                        
                         """);
             } else {
                 List<Book> books = converter.dtoToEntity(bookDTO, Book.class);
                 books.forEach(this::saveBookOnDB);
                 System.out.print("""
-                
-                ---------------------------------------------------------------------------
-                ****** Livros encontrados na API ******
-                ---------------------------------------------------------------------------
-                
-                """);
+                        
+                        ---------------------------------------------------------------------------
+                        ****** Livros encontrados na API ******
+                        ---------------------------------------------------------------------------
+                        
+                        """);
                 books.forEach(System.out::println);
                 System.out.print("""
                         
@@ -124,7 +130,7 @@ public class MainProgram {
         book.setAuthors(authors);
         String titleBook = book.getTitle();
         Optional<Book> bookOptional = bookRepository.findByTitle(titleBook);
-        if (bookOptional.isEmpty()){
+        if (bookOptional.isEmpty()) {
             bookRepository.save(book);
         }
     }
@@ -142,7 +148,7 @@ public class MainProgram {
 
     private void listAllBooksFromDB() {
         List<Book> books = bookRepository.findAll();
-        if(books.isEmpty()) {
+        if (books.isEmpty()) {
             System.out.print("""
                     
                     ---------------------------------------------------------------------------
@@ -160,18 +166,18 @@ public class MainProgram {
                     """);
             books.forEach(System.out::println);
             System.out.printf("""
-                            
-                            ---------------------------------------------------------------------------
-                            Total de livros armazenados no banco de dados: %d
-                            ---------------------------------------------------------------------------
-
-                            """, books.size());
+                    
+                    ---------------------------------------------------------------------------
+                    Total de livros armazenados no banco de dados: %d
+                    ---------------------------------------------------------------------------
+                    
+                    """, books.size());
         }
     }
 
     private void listAllAuthorsFromDB() {
         List<Author> authors = authorRepository.findAll();
-        if (authors.isEmpty()){
+        if (authors.isEmpty()) {
             System.out.println("Nenhum autor encontrado no banco de dados.");
         } else {
             System.out.print("""
@@ -183,19 +189,19 @@ public class MainProgram {
                     """);
             authors.forEach(System.out::println);
             System.out.printf("""
-                           \s
-                            ---------------------------------------------------------------------------
-                            Total de autores armazenados no banco de dados: %d
-                            ---------------------------------------------------------------------------
-                                             \s
-                           \s""", authors.size());
+                    \s
+                     ---------------------------------------------------------------------------
+                     Total de autores armazenados no banco de dados: %d
+                     ---------------------------------------------------------------------------
+                                      \s
+                    \s""", authors.size());
         }
     }
 
     private void findAuthorsAliveInAGivenYear() {
         int query = -1;
         boolean yearValid = false;
-        while(!yearValid) {
+        while (!yearValid) {
             System.out.print("Digite um ano para pesquisar: ");
             try {
                 query = scanner.nextInt();
@@ -240,32 +246,32 @@ public class MainProgram {
 
     private void searchBooksByLanguage() {
         System.out.print("Digite a sigla de um idioma para pesquisar: ");
-        String query = scanner.nextLine();
+        String query = scanner.nextLine().trim().toLowerCase();
         List<Book> books = bookRepository.findBooksByLanguages(query);
         if (books.isEmpty()) {
             System.out.print("""
-                            
-                            ---------------------------------------------------------------------------
-                            Nenhum autor encontrado com o idioma informado!
-                            ---------------------------------------------------------------------------
-                            
-                            """);
+                    
+                    ---------------------------------------------------------------------------
+                    Nenhum autor encontrado com o idioma informado!
+                    ---------------------------------------------------------------------------
+                    
+                    """);
         } else {
             System.out.println("""
-            
-            ----------------------------------------------------------------------------------
-            ****** Lista de livros armazenados no banco de dados com o idioma informado ******
-            ----------------------------------------------------------------------------------
-            
-            """);
+                    
+                    ----------------------------------------------------------------------------------
+                    ****** Lista de livros armazenados no banco de dados com o idioma informado ******
+                    ----------------------------------------------------------------------------------
+                    
+                    """);
             books.forEach(System.out::println);
             System.out.printf("""
-                       
-                        ---------------------------------------------------------------------------
-                        Total de livros armazenados no banco de dados com o idioma pesquisado: %d
-                        ---------------------------------------------------------------------------
-
-                        """, books.size());
+                    
+                    ---------------------------------------------------------------------------
+                    Total de livros armazenados no banco de dados com o idioma pesquisado: %d
+                    ---------------------------------------------------------------------------
+                    
+                    """, books.size());
         }
     }
 

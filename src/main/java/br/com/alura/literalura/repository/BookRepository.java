@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-     Optional<Book> findByTitle(String titleBook);
+    Optional<Book> findByTitle(String titleBook);
 
-     @Query("SELECT b FROM Book b WHERE :language MEMBER OF b.languages")
-     List<Book> findBooksByLanguages(String language);
+    @Query("SELECT b FROM Book b WHERE :language MEMBER OF b.languages")
+    List<Book> findBooksByLanguages(String language);
 }

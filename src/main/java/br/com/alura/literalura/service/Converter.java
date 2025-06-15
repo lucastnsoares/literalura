@@ -2,10 +2,11 @@ package br.com.alura.literalura.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Converter implements IConverter{
+public class Converter implements IConverter {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override

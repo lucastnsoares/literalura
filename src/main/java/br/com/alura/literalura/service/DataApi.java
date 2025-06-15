@@ -28,14 +28,12 @@ public class DataApi {
                 return response.body();
             }
 
-        }
-        catch (HttpTimeoutException e) {
-            System.out.println("Erro. Tempo de resposta da API excedido!");;
-        }
-        catch (ConnectException e) {
+        } catch (HttpTimeoutException e) {
+            System.out.println("Erro. Tempo de resposta da API excedido!");
+            ;
+        } catch (ConnectException e) {
             System.out.println("Erro. Verifique sua conexão!");
-        }
-        catch (IOException | InterruptedException | RuntimeException e) {
+        } catch (IOException | InterruptedException | RuntimeException e) {
             System.out.println("Erro ao obter dados da API.");
         }
         return null;
